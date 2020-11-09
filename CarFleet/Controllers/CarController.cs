@@ -78,6 +78,7 @@ namespace CarFleet.Controllers
         {
             _context.Cars.Add(car);
             await _context.SaveChangesAsync();
+            //test
 
             return CreatedAtAction("GetCar", new { id = car.Id }, car);
         }

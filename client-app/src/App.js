@@ -28,7 +28,7 @@ export default class App extends React.Component {
               </ToastProvider>
             </Provider>
           </Route>
-          <Route path="/about">{/* <About /> */}</Route>
+          <Route path="/about">{/* <Abouast /> */}</Route>
           <Route path="/dashboard">{/* <Dashboard /> */}</Route>
         </Switch>
       </Router>
