@@ -10,6 +10,6 @@ namespace CarFleet.Services.Abstract
     {
         string HashPassword(string password);
         bool VerifyPassword(string actualPassword, string hashedPassword);
-        AuthData GetAuthData(int id, string username, string email);
+        AuthData GetAuthData(int id, string username, string email, bool isAdmin);
     }
 }

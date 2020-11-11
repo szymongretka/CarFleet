@@ -22,5 +22,10 @@ namespace CarFleet.Data.Repository
             var user = this.GetSingle(u => u.Username == username);
             return user == null;
         }
+        public bool isUserAdmin(int id) 
+        {
+            var user = this.GetSingle(id);
+            return user.isAdmin;
+        }
     }
 }

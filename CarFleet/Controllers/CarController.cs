@@ -15,17 +15,18 @@ namespace CarFleet.Controllers
 {
     //[Route("api/[controller]")]
     [ApiController]
-    public class DCandidateController : ControllerBase
+    public class CarController : ControllerBase
     {
         private readonly FleetDBContext _context;
 
-        public DCandidateController(FleetDBContext context)
+        public CarController(FleetDBContext context)
         {
             _context = context;
         }
 
         // GET: api/car
         [HttpGet("/cars")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<Car>>> GetCars()
         {
             return await _context.Cars.ToListAsync();
@@ -46,9 +47,6 @@ namespace CarFleet.Controllers
             return car;
         }
 
-        // PUT: api/car/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("car/{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> PutCar(int Id, Car car)
@@ -76,9 +74,6 @@ namespace CarFleet.Controllers
             return NoContent();
         }
 
-        // POST: api/car
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost("/car")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Car>> PostCar(Car car)

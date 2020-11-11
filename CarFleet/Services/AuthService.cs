@@ -18,7 +18,7 @@ namespace CarFleet.Services
             this.jwtSecret = jwtSecret;
             this.jwtLifespan = jwtLifespan;
         }
-        public AuthData GetAuthData(int id, string username, string email)
+        public AuthData GetAuthData(int id, string username, string email, bool isAdmin)
         {
             var expirationTime = DateTime.UtcNow.AddSeconds(jwtLifespan);
 
@@ -44,7 +44,8 @@ namespace CarFleet.Services
                 TokenExpirationTime = ((DateTimeOffset)expirationTime).ToUnixTimeSeconds(),
                 Id = id,
                 Username = username,
-                Email = email
+                Email = email,
+                isAdmin = isAdmin
             };
         }
 

@@ -41,13 +41,15 @@ namespace CarFleet.Controllers
                 return BadRequest(new { password = "invalid password" });
             }
 
-            return authService.GetAuthData(user.Id, user.Username, user.Email);
+            return authService.GetAuthData(user.Id, user.Username, user.Email, user.isAdmin);
         }
 
         [HttpPost("register")]
         public ActionResult<AuthData> Post([FromBody] RegisterViewModel model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
+
+
 
             var emailUniq = userRepository.isEmailUniq(model.Email);
             if (!emailUniq) return BadRequest(new { email = "user with this email already exists" });
@@ -65,7 +67,7 @@ namespace CarFleet.Controllers
             userRepository.Add(user);
             userRepository.Commit();
 
-            return authService.GetAuthData(user.Id, user.Username, user.Email);
+            return authService.GetAuthData(user.Id, user.Username, user.Email, user.isAdmin);
         }
 
     }

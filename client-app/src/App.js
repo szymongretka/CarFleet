@@ -17,6 +17,7 @@ import Profile from "./components/Auth/Profile";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/auth";
 import { createBrowserHistory } from "history";
+import BoardAdmin from "./components/AdminPanel/BoardAdmin";
 
 export const history = createBrowserHistory();
 
@@ -64,7 +65,6 @@ class App extends React.Component {
     const user = this.props.user;
 
     if (user) {
-      console.log(user);
       this.setState({
         currentUser: user,
         // showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
@@ -84,7 +84,7 @@ class App extends React.Component {
       <Router>
         <div>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <Link to={"/"} className="navbar-brand">
+            <Link to={"/home"} className="navbar-brand">
               Car Fleet
             </Link>
             <div className="navbar-nav mr-auto">
@@ -94,31 +94,38 @@ class App extends React.Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"/cars"} className="nav-link">
-                  Cars
+                <Link to={"/reservations"} className="nav-link">
+                  Reservations
                 </Link>
               </li>
-              <li className="nav-item">
+              {showAdminBoard && (
+                <li className="nav-item">
+                  <Link to={"/cars"} className="nav-link">
+                    Cars
+                  </Link>
+                </li>
+              )}
+              {/* <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
                   Profile
                 </Link>
-              </li>
+              </li> */}
 
               {showAdminBoard && (
                 <li className="nav-item">
                   <Link to={"/admin"} className="nav-link">
-                    Admin Board
+                    Users
                   </Link>
                 </li>
               )}
 
-              {currentUser && (
+              {/* {currentUser && (
                 <li className="nav-item">
                   <Link to={"/user"} className="nav-link">
                     User
                   </Link>
                 </li>
-              )}
+              )} */}
             </div>
 
             {currentUser ? (
@@ -130,7 +137,7 @@ class App extends React.Component {
                 </li>
                 <li className="nav-item">
                   <a href="/login" className="nav-link" onClick={this.logOut}>
-                    LogOut
+                    Log out
                   </a>
                 </li>
               </div>
@@ -153,7 +160,7 @@ class App extends React.Component {
 
           <div className="container mt-3">
             <Switch>
-              {/* <Route exact path={["/", "/home"]} component={Home} /> */}
+              <Route exact path={["/", "/home"]} component={Calendar} />
               <Route exact path="/cars">
                 <ToastProvider autoDismiss={true}>
                   <Container maxWidth="lg">
@@ -163,10 +170,14 @@ class App extends React.Component {
               </Route>
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
-              <Route exact path="/profile" component={Profile} />
-              {/* <Route path="/user" component={BoardUser} /> */}
-              {/* <Route path="/mod" component={BoardModerator} /> */}
-              {/* <Route path="/admin" component={BoardAdmin} /> */}
+              {/* <Route exact path="/profile" component={Profile} /> */}
+              <Route exact path="/admin">
+                <ToastProvider autoDismiss={true}>
+                  <Container maxWidth="lg">
+                    <BoardAdmin />
+                  </Container>
+                </ToastProvider>
+              </Route>
             </Switch>
           </div>
         </div>

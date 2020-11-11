@@ -1,23 +1,23 @@
-import { ACTION_TYPES } from "../actions/car";
+import { ACTION_TYPES } from "../actions/admin";
 const initialState = {
   list: [],
 };
 
-export const car = (state = initialState, action) => {
+export const admin = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_TYPES.FETCH_ALL:
+    case ACTION_TYPES.FETCH_ALL_USERS:
       return {
         ...state,
         list: [...action.payload],
       };
 
-    case ACTION_TYPES.CREATE:
+    case ACTION_TYPES.CREATE_USER:
       return {
         ...state,
         list: [...state.list, action.payload],
       };
 
-    case ACTION_TYPES.UPDATE:
+    case ACTION_TYPES.UPDATE_USER:
       return {
         ...state,
         list: state.list.map((x) =>
@@ -25,7 +25,7 @@ export const car = (state = initialState, action) => {
         ),
       };
 
-    case ACTION_TYPES.DELETE:
+    case ACTION_TYPES.DELETE_USER:
       return {
         ...state,
         list: state.list.filter((x) => x.id != action.payload),

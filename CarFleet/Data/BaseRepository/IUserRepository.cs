@@ -10,5 +10,6 @@ namespace CarFleet.Data.BaseRepository
     {
         bool IsUsernameUniq(string username);
         bool isEmailUniq(string email);
+        bool isUserAdmin(int id);
     }
 }

@@ -9,8 +9,6 @@ class Profile extends Component {
     if (!currentUser) {
       return <Redirect to="/login" />;
     }
-
-    console.log(currentUser);
     return (
       <div className="container">
         <header className="jumbotron">
@@ -21,9 +19,6 @@ class Profile extends Component {
         <p>
           <strong>token:</strong>
           {currentUser.token}
-
-          {/* {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)} */}
         </p>
         <p>
           <strong>Id:</strong> {currentUser.id}
