@@ -56,7 +56,6 @@ export const update = (id, data, onSuccess) => (dispatch) => {
 };
 
 export const Delete = (id, onSuccess) => (dispatch) => {
-  console.log("test delete: " + id);
   api
     .car()
     .delete(id)
