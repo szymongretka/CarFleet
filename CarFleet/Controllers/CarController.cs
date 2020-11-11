@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using CarFleet.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +33,7 @@ namespace CarFleet.Controllers
 
         // GET: api/car/5
         [HttpGet("car/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Car>> GetCar(int id)
         {
             var car = await _context.Cars.FindAsync(id);
@@ -45,6 +50,7 @@ namespace CarFleet.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("car/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> PutCar(int Id, Car car)
         {
             car.Id = Id;
@@ -74,16 +80,19 @@ namespace CarFleet.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost("/car")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Car>> PostCar(Car car)
         {
             _context.Cars.Add(car);
             await _context.SaveChangesAsync();
+            //test
 
             return CreatedAtAction("GetCar", new { id = car.Id }, car);
         }
 
         // DELETE: /car/5
         [HttpDelete("car/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Car>> DeleteCar(int Id)
         {
             var car = await _context.Cars.FindAsync(Id);

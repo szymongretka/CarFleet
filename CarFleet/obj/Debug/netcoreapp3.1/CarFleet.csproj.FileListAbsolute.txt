@@ -78,5 +78,14 @@ C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\obj\Debu
 C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\obj\Debug\netcoreapp3.1\CarFleet.dll
 C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\obj\Debug\netcoreapp3.1\CarFleet.pdb
 C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\obj\Debug\netcoreapp3.1\CarFleet.genruntimeconfig.cache
+C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\bin\Debug\netcoreapp3.1\CryptoHelper.dll
+C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\obj\Debug\netcoreapp3.1\CarFleet.csproj.CoreCompileInputs.cache
 C:\Users\szymo\Documents\Visual Studio 2019\Labki .NET\Projekt\CarFleet\obj\Debug\netcoreapp3.1\CarFleet.MvcApplicationPartsAssemblyInfo.cache
