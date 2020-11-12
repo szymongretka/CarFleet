@@ -41,8 +41,6 @@ const CarForm = ({ classes, ...props }) => {
   //toast msg.
   const { addToast } = useToasts();
 
-  //validate()
-  //validate({brand:'jenny'})
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     if ("brand" in fieldValues)
@@ -121,53 +119,8 @@ const CarForm = ({ classes, ...props }) => {
             onChange={handleInputChange}
             {...(errors.model && { error: true, helperText: errors.model })}
           />
-          {/* <FormControl variant="outlined"
-                        className={classes.formControl}
-                        {...(errors.bloodGroup && { error: true })}
-                    >
-                        <InputLabel ref={inputLabel}>Blood Group</InputLabel>
-                        <Select
-                            name="bloodGroup"
-                            value={values.bloodGroup}
-                            onChange={handleInputChange}
-                            labelWidth={labelWidth}
-                        >
-                            <MenuItem value="">Select Blood Group</MenuItem>
-                            <MenuItem value="A+">A +ve</MenuItem>
-                            <MenuItem value="A-">A -ve</MenuItem>
-                            <MenuItem value="B+">B +ve</MenuItem>
-                            <MenuItem value="B-">B -ve</MenuItem>
-                            <MenuItem value="AB+">AB +ve</MenuItem>
-                            <MenuItem value="AB-">AB -ve</MenuItem>
-                            <MenuItem value="O+">O +ve</MenuItem>
-                            <MenuItem value="O-">O -ve</MenuItem>
-                        </Select>
-                        {errors.bloodGroup && <FormHelperText>{errors.bloodGroup}</FormHelperText>}
-                    </FormControl> */}
         </Grid>
         <Grid item xs={6}>
-          {/* <TextField
-                        name="mobile"
-                        variant="outlined"
-                        label="Mobile"
-                        value={values.mobile}
-                        onChange={handleInputChange}
-                        {...(errors.mobile && { error: true, helperText: errors.mobile })}
-                    />
-                    <TextField
-                        name="age"
-                        variant="outlined"
-                        label="Age"
-                        value={values.age}
-                        onChange={handleInputChange}
-                    />
-                    <TextField
-                        name="address"
-                        variant="outlined"
-                        label="Address"
-                        value={values.address}
-                        onChange={handleInputChange}
-                    /> */}
           <div>
             <Button
               variant="contained"

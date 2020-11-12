@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarFleet.Models
 {
-    public class Car
+    public class Car : IEntityBase
     {
         [Key]
         public int Id { get; set; }
@@ -16,6 +16,6 @@ namespace CarFleet.Models
         [Column(TypeName = "nvarchar(15)")]
         public string model { get; set; }
         public bool isAvailable { get; set; }
-
+        public List<Reservation> Reservations { get; set; }
     }
 }

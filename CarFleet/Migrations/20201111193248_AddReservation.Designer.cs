@@ -4,14 +4,16 @@ using CarFleet.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarFleet.Migrations
 {
     [DbContext(typeof(FleetDBContext))]
-    partial class FleetDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201111193248_AddReservation")]
+    partial class AddReservation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +65,7 @@ namespace CarFleet.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservation");
                 });
 
             modelBuilder.Entity("CarFleet.Models.User", b =>

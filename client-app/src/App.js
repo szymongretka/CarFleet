@@ -160,7 +160,13 @@ class App extends React.Component {
 
           <div className="container mt-3">
             <Switch>
-              <Route exact path={["/", "/home"]} component={Calendar} />
+              <Route exact path={["/", "/home"]}>
+                <ToastProvider autoDismiss={true}>
+                  <Container maxWidth="lg">
+                    <Calendar />
+                  </Container>
+                </ToastProvider>
+              </Route>
               <Route exact path="/cars">
                 <ToastProvider autoDismiss={true}>
                   <Container maxWidth="lg">

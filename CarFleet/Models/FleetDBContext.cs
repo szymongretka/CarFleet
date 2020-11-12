@@ -10,10 +10,11 @@ namespace CarFleet.Models
     {
         public FleetDBContext(DbContextOptions<FleetDBContext> options) : base(options)
         {
-
+            
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

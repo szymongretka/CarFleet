@@ -4,14 +4,16 @@ using CarFleet.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarFleet.Migrations
 {
     [DbContext(typeof(FleetDBContext))]
-    partial class FleetDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201112151609_Reservations")]
+    partial class Reservations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

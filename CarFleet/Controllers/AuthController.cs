@@ -50,7 +50,6 @@ namespace CarFleet.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
 
-
             var emailUniq = userRepository.isEmailUniq(model.Email);
             if (!emailUniq) return BadRequest(new { email = "user with this email already exists" });
             var usernameUniq = userRepository.IsUsernameUniq(model.Username);

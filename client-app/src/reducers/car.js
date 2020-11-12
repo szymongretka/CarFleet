@@ -1,6 +1,7 @@
 import { ACTION_TYPES } from "../actions/car";
 const initialState = {
   list: [],
+  availableList: [],
 };
 
 export const car = (state = initialState, action) => {
@@ -9,6 +10,11 @@ export const car = (state = initialState, action) => {
       return {
         ...state,
         list: [...action.payload],
+      };
+    case ACTION_TYPES.FETCH_AVAILABLE:
+      return {
+        ...state,
+        availableList: [...action.payload],
       };
 
     case ACTION_TYPES.CREATE:
@@ -22,6 +28,14 @@ export const car = (state = initialState, action) => {
         ...state,
         list: state.list.map((x) =>
           x.id == action.payload.id ? action.payload : x
+        ),
+      };
+
+    case ACTION_TYPES.BOOK:
+      return {
+        ...state,
+        availableList: state.availableList.filter(
+          (x) => x.id != action.payload
         ),
       };
 

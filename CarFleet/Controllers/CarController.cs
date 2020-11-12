@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using CarFleet.Data.BaseRepository;
 using CarFleet.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,10 +19,14 @@ namespace CarFleet.Controllers
     public class CarController : ControllerBase
     {
         private readonly FleetDBContext _context;
+        ICarRepository carRepository;
+        IReservationRepository reservationRepository;
 
-        public CarController(FleetDBContext context)
+        public CarController(FleetDBContext context, ICarRepository carRepository, IReservationRepository reservationRepository)
         {
             _context = context;
+            this.carRepository = carRepository;
+            this.reservationRepository = reservationRepository;
         }
 
         // GET: api/car
@@ -29,23 +34,57 @@ namespace CarFleet.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<Car>>> GetCars()
         {
-            return await _context.Cars.ToListAsync();
+            return await _context.Cars.Include(c => c.Reservations).ToListAsync();
         }
 
         // GET: api/car/5
         [HttpGet("car/{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<Car>> GetCar(int id)
+        public Car GetCar(int id)
         {
-            var car = await _context.Cars.FindAsync(id);
+            Car car = _context.Cars
+                .Where(p => p.Id == id)
+                .Include(p => p.Reservations)
+                .SingleOrDefault();
 
-            if (car == null)
+
+            /*if (car == null)
             {
                 return NotFound();
-            }
+            }*/
 
             return car;
         }
+
+        [HttpGet("availableCars")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public List<Car> GetAvailableCars(string startDate, string endDate)
+        {
+            return (List<Car>)carRepository.FindAvailableCars(DateTime.Parse(startDate), DateTime.Parse(endDate));
+        }
+
+        [HttpPut("car/{id}/book")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public void BookCar(int Id, string startDate, string endDate)
+        {
+            Car Car = _context.Cars
+                .Where(p => p.Id == Id)
+                .Include(p => p.Reservations)
+                .SingleOrDefault();
+
+            var reservation = new Reservation
+            {
+                startDate = DateTime.Parse(startDate),
+                endDate = DateTime.Parse(endDate),
+                Car = Car
+            };
+            Car.Reservations.Add(reservation);
+            _context.Reservations.Update(reservation);
+            _context.SaveChanges();
+
+            
+        }
+
 
         [HttpPut("car/{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

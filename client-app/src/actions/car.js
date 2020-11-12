@@ -5,6 +5,8 @@ export const ACTION_TYPES = {
   UPDATE: "UPDATE",
   DELETE: "DELETE",
   FETCH_ALL: "FETCH_ALL",
+  FETCH_AVAILABLE: "FETCH_AVAILABLE",
+  BOOK: "BOOK",
 };
 
 const formateData = (data) => ({
@@ -25,6 +27,19 @@ export const fetchAll = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+export const fetchAvailable = (startDate, endDate) => (dispatch) => {
+  api
+    .car()
+    .fetchAvailable(startDate, endDate)
+    .then((response) => {
+      dispatch({
+        type: ACTION_TYPES.FETCH_AVAILABLE,
+        payload: response.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
 export const create = (data, onSuccess) => (dispatch) => {
   data = formateData(data);
   api
@@ -34,6 +49,20 @@ export const create = (data, onSuccess) => (dispatch) => {
       dispatch({
         type: ACTION_TYPES.CREATE,
         payload: res.data,
+      });
+      onSuccess();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const book = (id, data, onSuccess) => (dispatch) => {
+  api
+    .car()
+    .book(id, data)
+    .then((res) => {
+      dispatch({
+        type: ACTION_TYPES.BOOK,
+        payload: { id, startDate: data.startDate, endDate: data.endDate },
       });
       onSuccess();
     })
