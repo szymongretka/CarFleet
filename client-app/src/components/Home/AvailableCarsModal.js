@@ -38,8 +38,8 @@ export const Modal = ({ handleClose, show, startDate, endDate, props }) => {
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
-        <Grid container>
-          <Grid item>
+        <Grid container justify="center">
+          <Grid>
             <TableContainer>
               <Table>
                 <TableHead>
@@ -51,29 +51,35 @@ export const Modal = ({ handleClose, show, startDate, endDate, props }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {props.availableList.map((record, index) => {
-                    return (
-                      <TableRow key={index} hover>
-                        <TableCell>{record.brand}</TableCell>
-                        <TableCell>{record.model}</TableCell>
+                  {props.availableList.length != 0 ? (
+                    props.availableList.map((record, index) => {
+                      return (
+                        <TableRow key={index} hover>
+                          <TableCell>{record.brand}</TableCell>
+                          <TableCell>{record.model}</TableCell>
 
-                        <TableCell>
-                          <Checkbox checked={record.isAvailable} disabled />
-                        </TableCell>
-                        <TableCell>
-                          <ButtonGroup variant="text">
-                            <Button
-                              onClick={() => handleBook(record.id)}
-                              style={{ color: "blue" }}
-                            >
-                              {" "}
-                              Book!
-                            </Button>
-                          </ButtonGroup>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
+                          <TableCell>
+                            <Checkbox checked={record.isAvailable} disabled />
+                          </TableCell>
+                          <TableCell>
+                            <ButtonGroup variant="text">
+                              <Button
+                                onClick={() => handleBook(record.id)}
+                                style={{ color: "blue" }}
+                              >
+                                {" "}
+                                Book!
+                              </Button>
+                            </ButtonGroup>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                  ) : (
+                    <TableRow hover>
+                      <TableCell>There are no available vehicles !</TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>

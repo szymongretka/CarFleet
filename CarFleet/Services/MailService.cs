@@ -20,10 +20,6 @@ namespace CarFleet.Services
         {
             _context = context;
         }
-        public void Print()
-        {
-            Console.WriteLine($"Hanfire recurring job!");
-        }
         public void sendMail()
         {
             var builder = new ConfigurationBuilder()

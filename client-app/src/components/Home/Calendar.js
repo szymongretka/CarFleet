@@ -15,6 +15,7 @@ import {
   FormHelperText,
   Checkbox,
   TableCell,
+  TableRow,
 } from "@material-ui/core";
 import { Modal } from "./AvailableCarsModal";
 
@@ -69,7 +70,8 @@ const Calendar = ({ ...props }) => {
 
   return (
     <Grid container>
-      <Grid item xs={2}>
+      <Grid item>
+        <h2>Start Date</h2>
         <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}
@@ -77,6 +79,7 @@ const Calendar = ({ ...props }) => {
           startDate={startDate}
           endDate={endDate}
         />
+        <h2>End Date</h2>
         <DatePicker
           selected={endDate}
           onChange={(date) => setEndDate(date)}
@@ -85,8 +88,9 @@ const Calendar = ({ ...props }) => {
           endDate={endDate}
           minDate={startDate}
         />
+        <TableRow></TableRow>
+        <Button onClick={handleCheck}>CHECK</Button>
       </Grid>
-      <Button onClick={handleCheck}>CHECK</Button>
       <Modal
         show={showModal}
         handleClose={hideModal}

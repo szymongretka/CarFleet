@@ -8,6 +8,5 @@ namespace CarFleet.Services.Abstract
     public interface IMailService
     {
         public void sendMail();
-        public void Print();
     }
 }

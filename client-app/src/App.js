@@ -85,7 +85,7 @@ class App extends React.Component {
       <Router>
         <div>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <Link to={"/home"} className="navbar-brand">
+            <Link to={["/"]} className="navbar-brand">
               Car Fleet
             </Link>
             <div className="navbar-nav mr-auto">
@@ -184,7 +184,7 @@ class App extends React.Component {
               </Route>
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
-              {/* <Route exact path="/profile" component={Profile} /> */}
+              <Route exact path="/profile" component={Profile} />
               <Route exact path="/admin">
                 <ToastProvider autoDismiss={true}>
                   <Container maxWidth="lg">

@@ -47,15 +47,16 @@ const Reservations = ({ classes, ...props }) => {
   };
   return (
     <Paper className={classes.paper} elevation={3}>
-      <Grid container>
-        <Grid item xs={6}>
+      <Grid container justify="center">
+        <Grid item xs={12}>
           <TableContainer>
             <Table>
               <TableHead className={classes.root}>
                 <TableRow>
                   <TableCell>Start Date</TableCell>
                   <TableCell>End Date</TableCell>
-                  <TableCell>Car ID</TableCell>
+                  <TableCell>Car brand</TableCell>
+                  <TableCell>Car model</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -65,7 +66,8 @@ const Reservations = ({ classes, ...props }) => {
                     <TableRow key={index} hover>
                       <TableCell>{record.startDate}</TableCell>
                       <TableCell>{record.endDate}</TableCell>
-                      <TableCell>{record.carId}</TableCell>
+                      <TableCell>{record.car.brand}</TableCell>
+                      <TableCell>{record.car.model}</TableCell>
                       <TableCell>
                         <ButtonGroup variant="text">
                           <Button>

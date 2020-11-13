@@ -40,7 +40,7 @@ namespace CarFleet.Controllers
                 return _context.Reservations.Include(r => r.Car);// reservationRepository.GetAll();
             }
             else {
-                return reservationRepository.FindBy(res => res.userEmail.Equals(GetUserEmail(userId)));
+                return _context.Reservations.Include(r => r.Car).Where(res => res.userEmail.Equals(GetUserEmail(userId)));//reservationRepository.FindBy(res => res.userEmail.Equals(GetUserEmail(userId)));
             }
         }
 
