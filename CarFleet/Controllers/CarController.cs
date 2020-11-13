@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -21,12 +22,14 @@ namespace CarFleet.Controllers
         private readonly FleetDBContext _context;
         ICarRepository carRepository;
         IReservationRepository reservationRepository;
+        IUserRepository userRepository;
 
-        public CarController(FleetDBContext context, ICarRepository carRepository, IReservationRepository reservationRepository)
+        public CarController(FleetDBContext context, ICarRepository carRepository, IReservationRepository reservationRepository, IUserRepository userRepository)
         {
             _context = context;
             this.carRepository = carRepository;
             this.reservationRepository = reservationRepository;
+            this.userRepository = userRepository;
         }
 
         // GET: api/car
@@ -76,7 +79,8 @@ namespace CarFleet.Controllers
             {
                 startDate = DateTime.Parse(startDate),
                 endDate = DateTime.Parse(endDate),
-                Car = Car
+                Car = Car,
+                userEmail = GetUserEmail(GetUserId())
             };
             Car.Reservations.Add(reservation);
             _context.Reservations.Update(reservation);
@@ -144,6 +148,20 @@ namespace CarFleet.Controllers
         private bool CarExists(int Id)
         {
             return _context.Cars.Any(c => c.Id == Id);
+        }
+        private int GetUserId()
+        {
+            string header = Request.Headers["Authorization"];
+            var jwt = header.Substring(7);
+            var handler = new JwtSecurityTokenHandler();
+            var claims = handler.ReadJwtToken(jwt).Claims.ToList();
+            var userId = claims?.FirstOrDefault(x => x.Type.Equals("unique_name", StringComparison.OrdinalIgnoreCase))?.Value;
+            return int.Parse(userId);
+        }
+        private string GetUserEmail(int Id)
+        {
+            User user = userRepository.GetSingle(Id);
+            return user.Email;
         }
     }
 }

@@ -4,6 +4,7 @@ import authHeader from "../components/Auth/header";
 const baseUrl = "http://localhost:5000/";
 const baseCarUrl = "http://localhost:5000/car/";
 const baseAdminUrl = "http://localhost:5000/api/admin/";
+const baseReservationUrl = "http://localhost:5000/api/reservation/";
 
 export default {
   car(url = baseCarUrl) {
@@ -36,6 +37,15 @@ export default {
       updateUser: (id, updateRecord) =>
         axios.put(url + id, updateRecord, { headers: authHeader() }),
       deleteUser: (id) => axios.delete(url + id, { headers: authHeader() }),
+    };
+  },
+
+  reservation(url = baseReservationUrl) {
+    return {
+      fetchAllReservations: () =>
+        axios.get(url + "all", { headers: authHeader() }),
+      deleteReservation: (id) =>
+        axios.delete(url + id, { headers: authHeader() }),
     };
   },
 };

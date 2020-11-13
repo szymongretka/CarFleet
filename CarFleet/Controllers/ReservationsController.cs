@@ -5,9 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarFleet.Data.BaseRepository;
 using CarFleet.Models;
+using CarFleet.Services;
+using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarFleet.Controllers
 {
@@ -34,7 +37,7 @@ namespace CarFleet.Controllers
 
             if (userRepository.isUserAdmin(userId))
             {
-                return reservationRepository.GetAll();
+                return _context.Reservations.Include(r => r.Car);// reservationRepository.GetAll();
             }
             else {
                 return reservationRepository.FindBy(res => res.userEmail.Equals(GetUserEmail(userId)));
@@ -72,6 +75,7 @@ namespace CarFleet.Controllers
             User user = userRepository.GetSingle(Id);
             return user.Email;
         }
+
 
 
     }

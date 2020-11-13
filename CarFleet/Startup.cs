@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarFleet.Data.BaseRepository;
 using CarFleet.Data.Repository;
+using Microsoft.Extensions.DependencyInjection;
 using CarFleet.Models;
 using CarFleet.Services;
 using CarFleet.Services.Abstract;
@@ -12,12 +13,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Hangfire;
+using Hangfire.Common;
 
 namespace CarFleet
 {
@@ -30,16 +32,21 @@ namespace CarFleet
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllers();
+
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
              );
 
             services.AddDbContext<FleetDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            services.AddHangfire(config =>
+               config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+               .UseSimpleAssemblyNameTypeSerializer()
+               .UseDefaultTypeSerializer()
+               .UseSqlServerStorage(Configuration.GetConnectionString("DevConnection")));
 
             services.AddCors();
 
@@ -59,7 +66,6 @@ namespace CarFleet
                     };
                 });
 
-
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICarRepository, CarRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
@@ -71,18 +77,11 @@ namespace CarFleet
                 )
             );
 
-            /*services
-                .AddMvc()
-                .SetCompatibilityVersion(version: CompatibilityVersion.Version_2_1)
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
-                });*/
+            services.AddScoped<IMailService, MailService>();
+            
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IBackgroundJobClient backgroundJobClient, IRecurringJobManager recurringJobManager, IServiceProvider serviceProvider)
         {
             app.UseCors(options => options.WithOrigins("http://localhost:3000")
                 .AllowAnyMethod()
@@ -98,6 +97,13 @@ namespace CarFleet
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
+
+            var context = serviceProvider.GetService<FleetDBContext>();
+
+            recurringJobManager.AddOrUpdate("Sending email", () => new MailService(context).sendMail(), "5 * * * *"); //"0 6 * * *" every day at 6am
 
             app.UseEndpoints(endpoints =>
             {

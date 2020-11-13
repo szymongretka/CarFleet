@@ -18,6 +18,7 @@ import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/auth";
 import { createBrowserHistory } from "history";
 import BoardAdmin from "./components/AdminPanel/BoardAdmin";
+import Reservations from "./components/Reservation/Reservations";
 
 export const history = createBrowserHistory();
 
@@ -171,6 +172,13 @@ class App extends React.Component {
                 <ToastProvider autoDismiss={true}>
                   <Container maxWidth="lg">
                     <Cars />
+                  </Container>
+                </ToastProvider>
+              </Route>
+              <Route exact path="/reservations">
+                <ToastProvider autoDismiss={true}>
+                  <Container maxWidth="lg">
+                    <Reservations />
                   </Container>
                 </ToastProvider>
               </Route>
