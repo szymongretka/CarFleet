@@ -69,7 +69,7 @@ const Calendar = ({ ...props }) => {
   }, [props.availableList]);
 
   return (
-    <Grid container>
+    <Grid container verticalAlign="middle" justify="center">
       <Grid item>
         <h2>Start Date</h2>
         <DatePicker
@@ -88,8 +88,18 @@ const Calendar = ({ ...props }) => {
           endDate={endDate}
           minDate={startDate}
         />
-        <TableRow></TableRow>
-        <Button onClick={handleCheck}>CHECK</Button>
+        <TableRow>
+          <TableCell />
+        </TableRow>
+
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={handleCheck}
+        >
+          Check
+        </Button>
       </Grid>
       <Modal
         show={showModal}

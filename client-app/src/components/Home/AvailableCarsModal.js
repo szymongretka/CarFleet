@@ -59,7 +59,7 @@ export const Modal = ({ handleClose, show, startDate, endDate, props }) => {
                           <TableCell>{record.model}</TableCell>
 
                           <TableCell>
-                            <Checkbox checked={record.isAvailable} disabled />
+                            <Checkbox checked={true} disabled />
                           </TableCell>
                           <TableCell>
                             <ButtonGroup variant="text">

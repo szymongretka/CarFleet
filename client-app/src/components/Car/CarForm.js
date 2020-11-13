@@ -119,8 +119,6 @@ const CarForm = ({ classes, ...props }) => {
             onChange={handleInputChange}
             {...(errors.model && { error: true, helperText: errors.model })}
           />
-        </Grid>
-        <Grid item xs={6}>
           <div>
             <Button
               variant="contained"
